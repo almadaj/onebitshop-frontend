@@ -24,9 +24,9 @@ const Login = () => {
   const handleLogin = () => {
     Alert.alert("Botão de login clicado");
   };
-  const handleRegister = () => {
-    Alert.alert("Botão de registro clicado");
-  };
+  // const handleRegister = () => {
+  //   Alert.alert("Botão de registro clicado");
+  // };
   return (
     <Container>
       <BackIcon marginLeft={30} />
@@ -50,7 +50,7 @@ const Login = () => {
       />
       <RegisterText
         onPress={() => {
-          navigation.navigate("Home");
+          navigation.navigate("Register");
         }}
       >
         Ainda não tem conta? <Bold>Registre-se aqui!</Bold>
