@@ -16,7 +16,7 @@ export const Logo = styled.Image.attrs({ resizeMode: "contain" })`
 `;
 
 export const InputContainer = styled.View`
-  width: 85%;
+  width: 90%;
   height: 50px;
   border: 1px solid ${({ theme }) => theme.colors.borderColor};
   background-color: ${({ theme }) => theme.colors.background};
