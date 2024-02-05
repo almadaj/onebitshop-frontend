@@ -1,20 +1,6 @@
 import React from "react";
-import {
-  Container,
-  InfoLikeContainer,
-  LikeButton,
-  LikeIcon,
-  ProductImage,
-  ProductInfoContainer,
-  ProductPrice,
-  ProductPriceTitleContainer,
-  ProductTitle,
-  PublishedText,
-  SellerInfoContainer,
-  SellerName,
-} from "./styles";
 import { FlatList, ListRenderItem } from "react-native";
-import { Alert } from "react-native";
+import ProductCard from "./ProductCard";
 
 const like = require("../../../../assets/icons/like.png");
 const liked = require("../../../../assets/icons/liked.png");
@@ -45,7 +31,7 @@ const Data = [
     productImage:
       "https://http2.mlstatic.com/D_NQ_NP_715237-MLA45308505060_032021-O.jpg",
     price: "3600",
-    name: "PlayStation 4 Pro",
+    name: "Nintendo Switch",
     publishedData: "14/02/23",
     SellerName: "Lucas Queiroga",
     liked: true,
@@ -55,7 +41,7 @@ const Data = [
     productImage:
       "https://http2.mlstatic.com/D_NQ_NP_715237-MLA45308505060_032021-O.jpg",
     price: "3600",
-    name: "PlayStation 4 Pro",
+    name: "XBox One",
     publishedData: "14/02/23",
     SellerName: "Lucas Queiroga",
     liked: false,
@@ -65,7 +51,7 @@ const Data = [
     productImage:
       "https://http2.mlstatic.com/D_NQ_NP_715237-MLA45308505060_032021-O.jpg",
     price: "3600",
-    name: "PlayStation 4 Pro",
+    name: "PlayStation 3",
     publishedData: "14/02/23",
     SellerName: "Lucas Queiroga",
     liked: true,
@@ -75,7 +61,7 @@ const Data = [
     productImage:
       "https://http2.mlstatic.com/D_NQ_NP_715237-MLA45308505060_032021-O.jpg",
     price: "3600",
-    name: "PlayStation 4 Pro",
+    name: "Nintendo DSLite",
     publishedData: "14/02/23",
     SellerName: "Lucas Queiroga",
     liked: false,
@@ -83,51 +69,8 @@ const Data = [
 ];
 
 const ProductList = () => {
-  const Item = ({ data }: { data: ProductType }) => (
-    <Container
-      activeOpacity={0.85}
-      onPress={() => {
-        Alert.alert("Nav2prod!");
-      }}
-    >
-      <ProductImage
-        source={{
-          uri: data.productImage,
-        }}
-      />
-      <ProductInfoContainer>
-        <ProductPriceTitleContainer>
-          <ProductTitle numberOfLines={2}>{data.name}</ProductTitle>
-          <ProductPrice>R$ {data.price}</ProductPrice>
-        </ProductPriceTitleContainer>
-        <InfoLikeContainer>
-          <SellerInfoContainer>
-            <PublishedText>Publicado em {data.publishedData}</PublishedText>
-            <SellerName>{data.SellerName}</SellerName>
-          </SellerInfoContainer>
-          {!data.liked ? (
-            <LikeButton
-              onPress={() => {
-                Alert.alert("Like!");
-              }}
-            >
-              <LikeIcon source={like} />
-            </LikeButton>
-          ) : (
-            <LikeButton
-              onPress={() => {
-                Alert.alert("Like!");
-              }}
-            >
-              <LikeIcon source={liked} />
-            </LikeButton>
-          )}
-        </InfoLikeContainer>
-      </ProductInfoContainer>
-    </Container>
-  );
   const renderItem: ListRenderItem<ProductType> = ({ item }) => (
-    <Item data={item} />
+    <ProductCard data={item} />
   );
   return (
     <FlatList
