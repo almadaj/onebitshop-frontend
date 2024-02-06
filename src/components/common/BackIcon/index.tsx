@@ -17,7 +17,7 @@ const BackIcon = ({ marginLeft }: props) => {
         navigation.goBack();
       }}
     >
-      <BackImage marginLeft={30} source={back} />
+      <BackImage marginLeft={marginLeft} source={back} />
     </BackContainer>
   );
 };

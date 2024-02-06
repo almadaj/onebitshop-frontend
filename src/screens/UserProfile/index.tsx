@@ -1,15 +1,13 @@
 import React from "react";
-import { Text } from "react-native";
 import { Container } from "./styles";
 import NavBar from "../../components/common/NavBar";
+import DefaultTitle from "../../components/common/DefaultTitle";
 
 const UserProfile = () => {
   return (
     <>
       <Container>
-        <Text style={{ color: "white", fontSize: 16, textAlign: "center" }}>
-          User Profile
-        </Text>
+        <DefaultTitle fontSize={20} title="MEU PERFIL" />
       </Container>
       <NavBar />
     </>
