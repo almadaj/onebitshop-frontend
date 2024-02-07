@@ -3,6 +3,7 @@ import { Container } from "./styles";
 import NavBar from "../../components/common/NavBar";
 import DefaultTitle from "../../components/common/DefaultTitle";
 import ProfileInfo from "../../components/common/ProfileInfo";
+import Form from "../../components/UserProfile/Form";
 
 const UserProfile = () => {
   return (
@@ -10,6 +11,7 @@ const UserProfile = () => {
       <Container>
         <DefaultTitle fontSize={20} title="MEU PERFIL" />
         <ProfileInfo />
+        <Form />
       </Container>
       <NavBar />
     </>
