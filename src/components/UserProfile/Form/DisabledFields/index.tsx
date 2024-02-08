@@ -1,5 +1,6 @@
 import React from "react";
 import { InputDisabled, PlaceholderDisabled } from "./styles";
+import DropDownComponent from "../../../common/DropDownComponent";
 
 const DisabledFields = () => {
   return (
@@ -14,8 +15,9 @@ const DisabledFields = () => {
         <PlaceholderDisabled>(85) 9 9999-9999</PlaceholderDisabled>
       </InputDisabled>
       <InputDisabled>
-        <PlaceholderDisabled>DROPDOWN</PlaceholderDisabled>
+        <PlaceholderDisabled>DisabledDropDown</PlaceholderDisabled>
       </InputDisabled>
+      {/* <DropDownComponent /> */}
       <InputDisabled>
         <PlaceholderDisabled>Senha</PlaceholderDisabled>
       </InputDisabled>
