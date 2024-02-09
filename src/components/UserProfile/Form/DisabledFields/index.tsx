@@ -1,6 +1,13 @@
 import React from "react";
-import { InputDisabled, PlaceholderDisabled } from "./styles";
-import DropDownComponent from "../../../common/DropDownComponent";
+import {
+  ArrowIconDisabled,
+  DropDownDisabled,
+  DropDownDisabledContainer,
+  InputDisabled,
+  PlaceholderDisabled,
+} from "./styles";
+
+const arrow = require("../../../../../assets/icons/arrow-down.png");
 
 const DisabledFields = () => {
   return (
@@ -14,10 +21,14 @@ const DisabledFields = () => {
       <InputDisabled>
         <PlaceholderDisabled>(85) 9 9999-9999</PlaceholderDisabled>
       </InputDisabled>
-      <InputDisabled>
-        <PlaceholderDisabled>DisabledDropDown</PlaceholderDisabled>
-      </InputDisabled>
-      {/* <DropDownComponent /> */}
+      <DropDownDisabledContainer>
+        <DropDownDisabled
+          setSelected={() => {}}
+          data={[]}
+          placeholder="Meus Endereços"
+          arrowicon={<ArrowIconDisabled source={arrow} />}
+        />
+      </DropDownDisabledContainer>
       <InputDisabled>
         <PlaceholderDisabled>Senha</PlaceholderDisabled>
       </InputDisabled>
