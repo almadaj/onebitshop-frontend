@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AddressText, Input } from "./styles";
+import { Input } from "./styles";
 import { InputContainer } from "../styles";
 import { Alert } from "react-native";
 import DefaultButton from "../../../common/DefaultButton";
@@ -45,13 +45,7 @@ const AbledFields = () => {
           secureTextEntry
         ></Input>
       </InputContainer>
-      <AddressText
-        onPress={() => {
-          Alert.alert("Gerente de endereço");
-        }}
-      >
-        Gerenciar Endereços
-      </AddressText>
+
       <DefaultButton
         buttonText={"Salvar Alterações"}
         buttonType={"primary"}

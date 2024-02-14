@@ -32,3 +32,11 @@ export const DeleteAcc = styled.Text`
   margin-top: 18px;
   color: ${({ theme }) => theme.colors.denounceButton};
 `;
+
+export const AddressText = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+  color: ${({ theme }) => theme.colors.primaryText};
+`;

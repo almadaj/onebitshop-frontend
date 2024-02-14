@@ -6,10 +6,10 @@ export const Input = styled.TextInput`
   font-weight: bold;
 `;
 
-export const AddressText = styled.Text`
-  font-size: 16px;
-  font-weight: bold;
-  margin: 15px 0;
-  text-align: center;
-  color: ${({ theme }) => theme.colors.primaryText};
-`;
+// export const AddressText = styled.Text`
+//   font-size: 16px;
+//   font-weight: bold;
+//   margin: 15px 0;
+//   text-align: center;
+//   color: ${({ theme }) => theme.colors.primaryText};
+// `;

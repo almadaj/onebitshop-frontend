@@ -1,12 +1,22 @@
 import React from "react";
-import { Container, DeleteAcc, LogOutBtn, LogOutText } from "./styles";
+import {
+  AddressText,
+  Container,
+  DeleteAcc,
+  LogOutBtn,
+  LogOutText,
+} from "./styles";
 import NavBar from "../../components/common/NavBar";
 import DefaultTitle from "../../components/common/DefaultTitle";
 import ProfileInfo from "../../components/common/ProfileInfo";
 import Form from "../../components/UserProfile/Form";
 import UserAds from "../../components/UserProfile/UserAds";
 import { Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { PropsStack } from "../../routes";
+import { LogBox } from "react-native";
 
+LogBox.ignoreLogs([`to contain units`]);
 const Data = [
   {
     id: "1",
@@ -35,6 +45,7 @@ const Data = [
 ];
 
 const UserProfile = () => {
+  const navigation = useNavigation<PropsStack>();
   const handleDeleteAcc = () => {
     Alert.alert(
       "Você tem certeza?",
@@ -63,6 +74,13 @@ const UserProfile = () => {
         <DefaultTitle fontSize={20} title="MEU PERFIL" />
         <ProfileInfo />
         <Form />
+        <AddressText
+          onPress={() => {
+            navigation.navigate("AllAddress");
+          }}
+        >
+          Gerenciar Endereços
+        </AddressText>
         <UserAds products={Data} seller={false} />
         <LogOutBtn onPress={() => {}}>
           <LogOutText>Sair da conta</LogOutText>
