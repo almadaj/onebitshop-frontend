@@ -63,7 +63,7 @@ const UserProfile = () => {
         <DefaultTitle fontSize={20} title="MEU PERFIL" />
         <ProfileInfo />
         <Form />
-        <UserAds products={Data} />
+        <UserAds products={Data} seller={false} />
         <LogOutBtn onPress={() => {}}>
           <LogOutText>Sair da conta</LogOutText>
         </LogOutBtn>

@@ -9,14 +9,15 @@ import {
   Title,
   TotalAds,
   Image,
-  InfoTrashContainer,
+  InfoIconContainer,
   PublishedText,
-  TrashButton,
-  TrashIcon,
+  Icon,
+  IconButton,
 } from "./styles";
 import { Alert } from "react-native";
 
 const trash = require("../../../../assets/icons/trash.png");
+const favorite = require("../../../../assets/icons/like.png");
 
 interface Product {
   id: string;
@@ -28,9 +29,10 @@ interface Product {
 
 interface ProductProps {
   products: Product[];
+  seller: boolean;
 }
 
-const UserAds = ({ products }: ProductProps) => {
+const UserAds = ({ products, seller }: ProductProps) => {
   return (
     <Container>
       <TotalAds>Você tem {products.length} anúncios</TotalAds>
@@ -53,20 +55,32 @@ const UserAds = ({ products }: ProductProps) => {
                 <Price>R$ {product.price}</Price>
                 <Title numberOfLines={2}>{product.title}</Title>
               </PriceTitleContainer>
-              <InfoTrashContainer>
+
+              <InfoIconContainer>
                 <PublishedText>
                   Publicado em {product.publishedData}
                 </PublishedText>
 
-                <TrashButton
-                  onPress={() => {
-                    Alert.alert("Item para ser excluído");
-                  }}
-                  activeOpacity={0.85}
-                >
-                  <TrashIcon source={trash} />
-                </TrashButton>
-              </InfoTrashContainer>
+                {!seller ? (
+                  <IconButton
+                    onPress={() => {
+                      Alert.alert("Item para ser excluído");
+                    }}
+                    activeOpacity={0.85}
+                  >
+                    <Icon source={trash} />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    onPress={() => {
+                      Alert.alert("Item para ser excluído");
+                    }}
+                    activeOpacity={0.85}
+                  >
+                    <Icon source={favorite} />
+                  </IconButton>
+                )}
+              </InfoIconContainer>
             </InfoContainer>
           </AdCard>
         ))

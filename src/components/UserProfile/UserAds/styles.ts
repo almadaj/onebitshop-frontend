@@ -55,7 +55,7 @@ export const Price = styled.Text`
   color: ${({ theme }) => theme.colors.secondaryText};
 `;
 
-export const InfoTrashContainer = styled.View`
+export const InfoIconContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
@@ -66,8 +66,8 @@ export const PublishedText = styled.Text`
   color: ${({ theme }) => theme.colors.secondaryText};
 `;
 
-export const TrashButton = styled.TouchableOpacity``;
+export const IconButton = styled.TouchableOpacity``;
 
-export const TrashIcon = styled.Image.attrs({ resizeMode: "contain" })`
+export const Icon = styled.Image.attrs({ resizeMode: "contain" })`
   width: 18px;
 `;
