@@ -6,7 +6,7 @@ type propsButton = {
 };
 
 export const ButtonContainer = styled.TouchableOpacity<propsButton>`
-  width: 90%;
+  width: 70%;
   min-height: 40px;
   background-color: ${(props) =>
     props.type === "primary"
@@ -15,7 +15,7 @@ export const ButtonContainer = styled.TouchableOpacity<propsButton>`
   justify-content: center;
   align-items: center;
   margin: ${(props) => props.marginVertical}px auto;
-  border-radius: 5px;
+  border-radius: 15px;
 `;
 
 export const ButtonText = styled.Text`
