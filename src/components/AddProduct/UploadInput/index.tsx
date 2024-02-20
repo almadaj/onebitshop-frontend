@@ -1,5 +1,5 @@
 import React, { SetStateAction } from "react";
-import { Container, Icon, Title } from "./styles";
+import { Container, Icon, ImageContainer, Title, Image } from "./styles";
 import * as ImagePicker from "expo-image-picker";
 import { Alert } from "react-native";
 const uploadImage = require("../../../../assets/icons/arrow-right.png");
@@ -19,7 +19,11 @@ const UploadInput = ({ images, setImages }: ImagesProps) => {
       quality: 1,
     });
     if (result.assets) {
-      setImages(result.assets);
+      const images = result.assets.slice(0, 6);
+      if (result.assets.length > 6) {
+        Alert.alert("Você subiu mais de 6 imagens");
+      }
+      setImages(images);
     } else {
       Alert.alert("Você não selecionou nenhuma imagem");
     }
@@ -31,6 +35,14 @@ const UploadInput = ({ images, setImages }: ImagesProps) => {
         <Title>Adicione até 6 fotos</Title>
         <Icon source={uploadImage} />
       </Container>
+
+      <ImageContainer>
+        {images &&
+          images.map((image) => {
+            console.log(image);
+            return <Image key={image.assetId} source={{ uri: image.uri }} />;
+          })}
+      </ImageContainer>
     </>
   );
 };
