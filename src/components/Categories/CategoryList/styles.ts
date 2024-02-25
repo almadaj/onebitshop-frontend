@@ -12,14 +12,13 @@ export const TitleContainer = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: 18px;
+  font-size: 24px;
   color: ${({ theme }) => theme.colors.primaryText};
   font-weight: bold;
 `;
 
 export const SeeMore = styled.Text`
-  font-size: 14px;
-  color: ${({ theme }) => theme.colors.primaryText};
-  font-weight: bold;
-  padding-right: 30px;
+  font-size: 16px;
+  color: ${({ theme }) => theme.colors.secondaryText};
+  padding-right: 20px;
 `;

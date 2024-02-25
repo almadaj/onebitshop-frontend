@@ -11,7 +11,8 @@ import SellerProfile from "../screens/SellerProfile";
 import AllAddress from "../screens/AllAddress";
 import AddAddress from "../screens/AddAddress";
 import AddProduct from "../screens/AddProduct";
-import Categories from "../screens/AllCategories";
+import Categories, { Product } from "../screens/AllCategories";
+import Category from "../screens/Category";
 
 export type PropsNavigationStack = {
   Home: undefined;
@@ -26,6 +27,7 @@ export type PropsNavigationStack = {
   AddAddress: undefined;
   AddProduct: undefined;
   AllCategories: undefined;
+  Category: { _id: string; product: Product[] };
 };
 
 const Stack = createNativeStackNavigator<PropsNavigationStack>();
@@ -49,6 +51,7 @@ const Routes = () => {
         <Stack.Screen name="AddAddress" component={AddAddress} />
         <Stack.Screen name="AddProduct" component={AddProduct} />
         <Stack.Screen name="AllCategories" component={Categories} />
+        <Stack.Screen name="Category" component={Category} />
       </Stack.Navigator>
     </NavigationContainer>
   );
