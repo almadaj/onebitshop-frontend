@@ -14,6 +14,8 @@ import {
 } from "./styles";
 import { Alert } from "react-native";
 import { ProductType } from "..";
+import { useNavigation } from "@react-navigation/native";
+import { PropsStack } from "../../../../routes";
 
 const likeImage = require("../../../../../assets/icons/like.png");
 const likedImage = require("../../../../../assets/icons/liked.png");
@@ -23,15 +25,13 @@ interface DataProps {
 }
 
 const ProductCard = ({ data }: DataProps) => {
-  function handleNavProduct() {
-    Alert.alert("AAAA");
-  }
+  const navigation = useNavigation<PropsStack>();
 
   return (
     <Container
       activeOpacity={0.85}
       onPress={() => {
-        handleNavProduct();
+        navigation.navigate("Product");
       }}
     >
       <ProductImage source={{ uri: data.productImage }} />
