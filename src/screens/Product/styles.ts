@@ -8,3 +8,21 @@ export const Container = styled.ScrollView`
   background-color: ${({ theme }) => theme.colors.backgroundLight};
   padding-top: ${statusBarHeight};
 `;
+
+export const Title = styled.Text`
+  font-size: 22px;
+  color: ${({ theme }) => theme.colors.primaryText};
+  margin: 0px 30px;
+  font-weight: bold;
+`;
+
+export const SubtitleContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 30px;
+`;
+
+export const Subtitle = styled.Text`
+  font-size: 14px;
+  color: ${({ theme }) => theme.colors.secondaryText};
+`;
