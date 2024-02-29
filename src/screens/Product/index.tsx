@@ -14,6 +14,7 @@ import {
 import BackIcon from "../../components/common/BackIcon";
 import Carousel from "../../components/Product/Carousel";
 import DescriptionComponent from "../../components/Product/Description";
+import SellerInfo from "../../components/Product/SellerInfo";
 
 const images = [
   {
@@ -63,6 +64,7 @@ const Product = () => {
         </InteractionsContainer>
       </InfoContainer>
       <DescriptionComponent desc={description} />
+      <SellerInfo />
     </Container>
   );
 };
