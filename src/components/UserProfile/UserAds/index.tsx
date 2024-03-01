@@ -15,6 +15,8 @@ import {
   IconButton,
 } from "./styles";
 import { Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { PropsStack } from "../../../routes";
 
 const trash = require("../../../../assets/icons/trash.png");
 const favorite = require("../../../../assets/icons/like.png");
@@ -33,6 +35,15 @@ interface ProductProps {
 }
 
 const UserAds = ({ products, seller }: ProductProps) => {
+  const navigation = useNavigation<PropsStack>();
+
+  const handleEditProduct = () => {
+    if (!seller) {
+      navigation.navigate("AddProduct");
+    } else {
+      navigation.navigate("Product");
+    }
+  };
   return (
     <Container>
       <TotalAds>Você tem {products.length} anúncios</TotalAds>
@@ -41,7 +52,7 @@ const UserAds = ({ products, seller }: ProductProps) => {
           <AdCard
             activeOpacity={0.85}
             onPress={() => {
-              Alert.alert("Você clicou no produto!");
+              handleEditProduct;
             }}
             key={product.id}
           >

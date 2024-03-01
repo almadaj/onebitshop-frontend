@@ -10,6 +10,8 @@ import {
   Title,
 } from "./styles";
 import { Product } from "../../../../screens/AllCategories";
+import { useNavigation } from "@react-navigation/native";
+import { PropsStack } from "../../../../routes";
 
 interface ProductProps {
   product: Product;
@@ -17,8 +19,14 @@ interface ProductProps {
 
 const like = require("../../../../../assets/icons/like.png");
 const CategoryCard = ({ product }: ProductProps) => {
+  const navigation = useNavigation<PropsStack>();
+
   return (
-    <Container>
+    <Container
+      onPress={() => {
+        navigation.navigate("Product");
+      }}
+    >
       <Image source={{ uri: product.productImage }} />
       <TextContainer>
         <Title>{product.title}</Title>

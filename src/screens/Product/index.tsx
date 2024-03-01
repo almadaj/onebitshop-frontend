@@ -15,6 +15,7 @@ import BackIcon from "../../components/common/BackIcon";
 import Carousel from "../../components/Product/Carousel";
 import DescriptionComponent from "../../components/Product/Description";
 import SellerInfo from "../../components/Product/SellerInfo";
+import DefaultButton from "../../components/common/DefaultButton";
 
 const images = [
   {
@@ -42,7 +43,7 @@ const Product = () => {
   const description =
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil recusandae laudantium hic, magnam necessitatibus eius quam asperiores corrupti sunt nam!";
   return (
-    <Container>
+    <Container contentContainerStyle={{ paddingBottom: 50 }}>
       <BackIcon marginLeft={30} />
       <Title>Playstation 4 com 2 controles</Title>
       <SubtitleContainer>
@@ -65,6 +66,13 @@ const Product = () => {
       </InfoContainer>
       <DescriptionComponent desc={description} />
       <SellerInfo />
+
+      <DefaultButton
+        buttonText={"Fale com o Vendedor"}
+        buttonType={"primary"}
+        marginVertical={0}
+        buttonHandle={() => {}}
+      />
     </Container>
   );
 };
