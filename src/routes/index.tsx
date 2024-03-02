@@ -14,6 +14,7 @@ import AddProduct from "../screens/AddProduct";
 import Categories, { Product } from "../screens/AllCategories";
 import Category from "../screens/Category";
 import ProductScreen from "../screens/Product";
+import Denounce from "../screens/Denounce";
 
 export type PropsNavigationStack = {
   Home: undefined;
@@ -30,6 +31,7 @@ export type PropsNavigationStack = {
   AllCategories: undefined;
   Category: { _id: string; product: Product[] };
   Product: undefined;
+  Denounce: undefined;
 };
 
 const Stack = createNativeStackNavigator<PropsNavigationStack>();
@@ -55,6 +57,7 @@ const Routes = () => {
         <Stack.Screen name="AllCategories" component={Categories} />
         <Stack.Screen name="Category" component={Category} />
         <Stack.Screen name="Product" component={ProductScreen} />
+        <Stack.Screen name="Denounce" component={Denounce} />
       </Stack.Navigator>
     </NavigationContainer>
   );
