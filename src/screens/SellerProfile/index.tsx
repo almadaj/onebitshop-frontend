@@ -6,6 +6,8 @@ import ProfileInfo from "../../components/common/ProfileInfo";
 import UserAds from "../../components/UserProfile/UserAds";
 import DefaultButton from "../../components/common/DefaultButton";
 import NavBar from "../../components/common/NavBar";
+import { useNavigation } from "@react-navigation/native";
+import { PropsStack } from "../../routes";
 
 const Data = [
   {
@@ -35,6 +37,7 @@ const Data = [
 ];
 
 const SellerProfile = () => {
+  const navigation = useNavigation<PropsStack>();
   return (
     <>
       <Container
@@ -53,7 +56,13 @@ const SellerProfile = () => {
           buttonHandle={() => {}}
           marginVertical={10}
         />
-        <DenounceText>Achou algo estranho? Denuncie Aqui</DenounceText>
+        <DenounceText
+          onPress={() => {
+            navigation.navigate("Denounce");
+          }}
+        >
+          Achou algo estranho? Denuncie Aqui
+        </DenounceText>
       </Container>
       <NavBar />
     </>
