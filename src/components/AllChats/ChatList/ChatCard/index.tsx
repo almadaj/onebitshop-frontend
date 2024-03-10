@@ -18,9 +18,14 @@ import { PropsStack } from "../../../../routes";
 const trashIcon = require("../../../../../assets/icons/trash.png");
 
 const ChatCard = ({ item }: any) => {
-  const navigation = useNavigation<PropsStack>;
+  const navigation = useNavigation<PropsStack>();
   return (
-    <Container activeOpacity={0.85} onPress={() => {}}>
+    <Container
+      activeOpacity={0.85}
+      onPress={() => {
+        navigation.navigate("Chat", { chatInfo: item });
+      }}
+    >
       <Image source={{ uri: item.product.images[0].url }} />
       <InfoContainer>
         <Price>R$ {item.product.price}</Price>
