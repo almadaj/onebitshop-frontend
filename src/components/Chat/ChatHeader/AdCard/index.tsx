@@ -14,7 +14,7 @@ const AdCard = ({ product }: any) => {
       <Image source={{ uri: product.images[0].url }} />
       <InfoContainer>
         <Title numberOfLines={2}>{product.name}</Title>
-        <SubTitle>{product.price} - Ver o Anúncio</SubTitle>
+        <SubTitle>R$ {product.price} - Ver o Anúncio</SubTitle>
       </InfoContainer>
     </Container>
   );
