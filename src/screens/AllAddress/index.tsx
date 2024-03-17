@@ -7,17 +7,7 @@ import AddressCard from "./AddressCard";
 import { ListHeight } from "./AddressCard/styles";
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../routes";
-
-export interface Address {
-  _id: string;
-  street: string;
-  number: string;
-  complement: string;
-  district: string;
-  city: string;
-  state: string;
-  cep: string;
-}
+import { Address } from "../../entitites/User";
 
 const Data = [
   {

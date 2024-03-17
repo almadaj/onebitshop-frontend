@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, ContentTxt, DeleteBtn, DeleteIcon } from "./styles";
-import { Address } from "..";
+import { Address } from "../../../entitites/User";
 import { Alert } from "react-native";
 
 interface ItemProps {
