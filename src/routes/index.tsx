@@ -11,13 +11,14 @@ import SellerProfile from "../screens/SellerProfile";
 import AllAddress from "../screens/AllAddress";
 import AddAddress from "../screens/AddAddress";
 import AddProduct from "../screens/AddProduct";
-import Categories, { Product } from "../screens/AllCategories";
+import Categories from "../screens/AllCategories";
 import Category from "../screens/Category";
 import ProductScreen from "../screens/Product";
 import Denounce from "../screens/Denounce";
 import Feedback from "../screens/Feedback";
 import AllChats from "../screens/AllChats";
 import Chat from "../screens/Chat";
+import { Product } from "../entitites/Product";
 
 export type PropsNavigationStack = {
   Home: undefined;

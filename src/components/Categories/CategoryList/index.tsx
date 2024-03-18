@@ -1,15 +1,16 @@
 import React from "react";
 import { Container, SeeMore, Title, TitleContainer } from "./styles";
-import { Category, Product } from "../../../screens/AllCategories";
+import { Category } from "../../../screens/AllCategories";
 import { FlatList, ListRenderItem } from "react-native";
 import CategoryCard from "./CategoryCard";
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../../routes";
+import { Product } from "../../../entitites/Product";
 
 const CategoryList = ({ category }: Category) => {
   const navigation = useNavigation<PropsStack>();
   const renderItem: ListRenderItem<Product> = ({ item }) => {
-    return <CategoryCard product={item} key={item.id} />;
+    return <CategoryCard product={item} key={item._id} />;
   };
   return (
     <>

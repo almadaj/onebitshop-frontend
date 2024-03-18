@@ -17,17 +17,10 @@ import {
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../../routes";
+import { Product } from "../../../entitites/Product";
 
 const trash = require("../../../../assets/icons/trash.png");
 const favorite = require("../../../../assets/icons/like.png");
-
-interface Product {
-  id: string;
-  productImage: string;
-  price: string;
-  title: string;
-  publishedData: string;
-}
 
 interface ProductProps {
   products: Product[];
@@ -54,17 +47,17 @@ const UserAds = ({ products, seller }: ProductProps) => {
             onPress={() => {
               handleEditProduct;
             }}
-            key={product.id}
+            key={product._id}
           >
             <Image
               source={{
-                uri: product.productImage,
+                uri: product.images[0].url,
               }}
             />
             <InfoContainer>
               <PriceTitleContainer>
                 <Price>R$ {product.price}</Price>
-                <Title numberOfLines={2}>{product.title}</Title>
+                <Title numberOfLines={2}>{product.name}</Title>
               </PriceTitleContainer>
 
               <InfoIconContainer>

@@ -10,9 +10,9 @@ import {
   PublishedText,
   Title,
 } from "./styles";
-import { Product } from "../../../../screens/AllCategories";
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../../../routes";
+import { Product } from "../../../../entitites/Product";
 
 interface Props {
   product: Product;
@@ -31,9 +31,9 @@ const CategoryCard = ({ product }: Props) => {
           navigation.navigate("Product");
         }}
       >
-        <Image source={{ uri: product.productImage }} />
+        <Image source={{ uri: product.images[0].url }} />
         <InfoContainer>
-          <Title numberOfLines={2}>{product.title}</Title>
+          <Title numberOfLines={2}>{product.name}</Title>
           <Price>R$ {product.price}</Price>
 
           <LikeContainer>

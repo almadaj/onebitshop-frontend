@@ -1,19 +1,10 @@
 import React from "react";
 import { FlatList, ListRenderItem } from "react-native";
 import ProductCard from "./ProductCard";
+import { Product } from "../../../entitites/Product";
 
 const like = require("../../../../assets/icons/like.png");
 const liked = require("../../../../assets/icons/liked.png");
-
-export interface ProductType {
-  _id: string;
-  productImage: string;
-  price: string;
-  name: string;
-  publishedData: string;
-  SellerName: string;
-  liked: boolean;
-}
 
 const Data = [
   {
@@ -69,13 +60,14 @@ const Data = [
 ];
 
 const ProductList = () => {
-  const renderItem: ListRenderItem<ProductType> = ({ item }) => (
+  const renderItem: ListRenderItem<Product> = ({ item }) => (
     <ProductCard data={item} />
   );
   return (
     <FlatList
+      // @ts-ignore
       data={Data}
-      keyExtractor={(item: ProductType) => item._id}
+      keyExtractor={(item: Product) => item._id}
       renderItem={renderItem}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 80 }}
