@@ -10,10 +10,12 @@ import {
 } from "./styles";
 import { PropsStack } from "../../../routes";
 import { AirbnbRating } from "react-native-ratings";
+import useAuth from "../../../hook/useAuth";
 
 const SellerInfo = () => {
   const navigation = useNavigation<PropsStack>();
   const Rate = 4;
+  const { token } = useAuth();
 
   return (
     <Container>
@@ -21,11 +23,21 @@ const SellerInfo = () => {
         <Name>Lucas Queiroga</Name>
 
         {!Rate ? (
-          <NoRate>Sem Avaliação</NoRate>
+          <NoRate
+            onPress={() => {
+              token === null
+                ? navigation.navigate("Login")
+                : navigation.navigate("Feedback");
+            }}
+          >
+            Sem Avaliação
+          </NoRate>
         ) : (
           <Button
             onPress={() => {
-              navigation.navigate("Feedback");
+              token === null
+                ? navigation.navigate("Login")
+                : navigation.navigate("Feedback");
             }}
           >
             <AirbnbRating

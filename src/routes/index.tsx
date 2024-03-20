@@ -19,6 +19,7 @@ import Feedback from "../screens/Feedback";
 import AllChats from "../screens/AllChats";
 import Chat from "../screens/Chat";
 import { Product } from "../entitites/Product";
+import useAuth from "../hook/useAuth";
 
 export type PropsNavigationStack = {
   Home: undefined;
@@ -47,6 +48,7 @@ const Stack = createNativeStackNavigator<PropsNavigationStack>();
 export type PropsStack = NativeStackNavigationProp<PropsNavigationStack>;
 
 const Routes = () => {
+  const { token } = useAuth();
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -54,22 +56,35 @@ const Routes = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Search" component={Search} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="UserProfile" component={UserProfile} />
-        <Stack.Screen name="SellerProfile" component={SellerProfile} />
-        <Stack.Screen name="AllAddress" component={AllAddress} />
-        <Stack.Screen name="AddAddress" component={AddAddress} />
-        <Stack.Screen name="AddProduct" component={AddProduct} />
-        <Stack.Screen name="AllCategories" component={Categories} />
-        <Stack.Screen name="Category" component={Category} />
-        <Stack.Screen name="Product" component={ProductScreen} />
-        <Stack.Screen name="Denounce" component={Denounce} />
-        <Stack.Screen name="Feedback" component={Feedback} />
-        <Stack.Screen name="AllChats" component={AllChats} />
-        <Stack.Screen name="Chat" component={Chat} />
+        {token === null ? (
+          <>
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Search" component={Search} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen name="SellerProfile" component={SellerProfile} />
+            <Stack.Screen name="AllCategories" component={Categories} />
+            <Stack.Screen name="Category" component={Category} />
+            <Stack.Screen name="Product" component={ProductScreen} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Search" component={Search} />
+            <Stack.Screen name="Product" component={ProductScreen} />
+            <Stack.Screen name="SellerProfile" component={SellerProfile} />
+            <Stack.Screen name="AllCategories" component={Categories} />
+            <Stack.Screen name="Category" component={Category} />
+            <Stack.Screen name="AllChats" component={AllChats} />
+            <Stack.Screen name="Chat" component={Chat} />
+            <Stack.Screen name="AddProduct" component={AddProduct} />
+            <Stack.Screen name="UserProfile" component={UserProfile} />
+            <Stack.Screen name="Feedback" component={Feedback} />
+            <Stack.Screen name="Denounce" component={Denounce} />
+            <Stack.Screen name="AddAddress" component={AddAddress} />
+            <Stack.Screen name="AllAddress" component={AllAddress} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

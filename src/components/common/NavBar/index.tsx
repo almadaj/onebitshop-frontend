@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Icon, IconButton } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../../routes";
+import useAuth from "../../../hook/useAuth";
 
 const home = require("../../../../assets/icons/home.png");
 const chat = require("../../../../assets/icons/chat.png");
@@ -11,6 +12,7 @@ const profile = require("../../../../assets/icons/profile.png");
 
 const NavBar = () => {
   const navigation = useNavigation<PropsStack>();
+  const { token } = useAuth();
   return (
     <Container>
       <IconButton
@@ -22,14 +24,18 @@ const NavBar = () => {
       </IconButton>
       <IconButton
         onPress={() => {
-          navigation.navigate("AllChats");
+          token === null
+            ? navigation.navigate("Login")
+            : navigation.navigate("AllChats");
         }}
       >
         <Icon source={chat} />
       </IconButton>
       <IconButton
         onPress={() => {
-          navigation.navigate("AddProduct");
+          token === null
+            ? navigation.navigate("Login")
+            : navigation.navigate("AddProduct");
         }}
       >
         <Icon source={add} />
@@ -44,7 +50,9 @@ const NavBar = () => {
       </IconButton>
       <IconButton
         onPress={() => {
-          navigation.navigate("UserProfile");
+          token === null
+            ? navigation.navigate("Login")
+            : navigation.navigate("UserProfile");
         }}
       >
         <Icon source={profile} />

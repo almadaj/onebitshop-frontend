@@ -19,6 +19,7 @@ import SellerInfo from "../../components/Product/SellerInfo";
 import DefaultButton from "../../components/common/DefaultButton";
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../routes";
+import useAuth from "../../hook/useAuth";
 
 const images = [
   {
@@ -44,6 +45,7 @@ const share = require("../../../assets/icons/share.png");
 
 const Product = () => {
   const navigation = useNavigation<PropsStack>();
+  const { token } = useAuth();
 
   const description =
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil recusandae laudantium hic, magnam necessitatibus eius quam asperiores corrupti sunt nam!";
@@ -81,7 +83,9 @@ const Product = () => {
 
       <DenounceSeller
         onPress={() => {
-          navigation.navigate("Denounce");
+          token === null
+            ? navigation.navigate("Login")
+            : navigation.navigate("Denounce");
         }}
       >
         Denunciar Vendedor
