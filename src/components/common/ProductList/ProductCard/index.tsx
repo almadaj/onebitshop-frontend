@@ -34,7 +34,7 @@ const ProductCard = ({ data }: DataProps) => {
         navigation.navigate("Product");
       }}
     >
-      <ProductImage source={{ uri: data.images[0].url }} />
+      {/* <ProductImage source={{ uri: data.images[0].url }} /> */}
       <ProductInfoContainer>
         <ProductPrice>R$ {data.price}</ProductPrice>
         <ProductTitle numberOfLines={2}>{data.name}</ProductTitle>
@@ -43,7 +43,7 @@ const ProductCard = ({ data }: DataProps) => {
             <PublishedText>
               Publicado em {data.publishedData} por:
             </PublishedText>
-            <SellerName>{data.Seller.name}</SellerName>
+            {/* <SellerName>{data.Seller.name}</SellerName> */}
           </SellerInfoContainer>
           <LikeButton onPress={() => Alert.alert("Liked")} activeOpacity={0.85}>
             <LikeIcon source={likeImage} />
