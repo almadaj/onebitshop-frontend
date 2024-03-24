@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Bold,
   CompanyLogo,
@@ -14,31 +14,46 @@ import DefaultButton from "../../components/common/DefaultButton";
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../routes";
+import useAuth from "../../hook/useAuth";
 
 const logo = require("../../../assets/images/logo.png");
 const company = require("../../../assets/images/logo-obc.png");
 
 const Login = () => {
   const navigation = useNavigation<PropsStack>();
+  const [fields, setFields] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { login } = useAuth();
 
   const handleLogin = () => {
-    Alert.alert("Botão de login clicado");
+    login(fields.email, fields.password);
   };
-  // const handleRegister = () => {
-  //   Alert.alert("Botão de registro clicado");
-  // };
   return (
     <Container>
       <BackIcon marginLeft={30} />
       <Logo source={logo} />
       <InputContainer>
-        <Input placeholder="Email" placeholderTextColor="#C0C0C1" />
+        <Input
+          placeholder="Email"
+          placeholderTextColor="#C0C0C1"
+          value={fields.email}
+          onChangeText={(val) => {
+            setFields({ ...fields, email: val });
+          }}
+        />
       </InputContainer>
       <InputContainer>
         <Input
           placeholder="Senha"
           placeholderTextColor="#C0C0C1"
           secureTextEntry={true}
+          value={fields.password}
+          onChangeText={(val) => {
+            setFields({ ...fields, password: val });
+          }}
         />
       </InputContainer>
       <ForgetPassword>Esqueceu sua senha?</ForgetPassword>
