@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, CreateAddBtn, CreateAddBtnText, NoAdd } from "./styles";
 import NavBar from "../../components/common/NavBar";
 import DefaultTitle from "../../components/common/DefaultTitle";
-import { FlatList, ListRenderItem, View } from "react-native";
+import { FlatList, ListRenderItem } from "react-native";
 import AddressCard from "./AddressCard";
 import { ListHeight } from "./AddressCard/styles";
 import { useNavigation } from "@react-navigation/native";
@@ -18,7 +18,7 @@ const AllAddress = ({ route }: Props) => {
   const [allAddress, setAllAddress] = useState<Address[]>([]);
   const { newAddress } = route.params;
   const renderItem: ListRenderItem<Address> = ({ item }) => (
-    <AddressCard item={item} />
+    <AddressCard item={item} address={allAddress} setAddress={setAllAddress} />
   );
 
   const handleNavAddAddress = () => {
