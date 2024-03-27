@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   DescriptionContainer,
@@ -11,40 +11,106 @@ import DropDownComponent from "../../components/common/DropDownComponent";
 import DefaultButton from "../../components/common/DefaultButton";
 import UploadInput from "../../components/AddProduct/UploadInput";
 import { ImagePickerAsset } from "expo-image-picker";
-
-const Address = [
-  { value: "Endereço 1" },
-  { value: "Endereço 2" },
-  { value: "Endereço 3" },
-  { value: "Endereço 4" },
-];
+import addressService from "../../services/addressService";
+import { Address } from "../../entitites/User";
 
 const Category = [
-  { value: "Categoria 1" },
-  { value: "Categoria 2" },
-  { value: "Categoria 3" },
-  { value: "Categoria 4" },
+  { value: "Eletrônicos" },
+  { value: "Eletrodomésticos" },
+  { value: "Moda e Acessórios" },
+  { value: "Pets" },
+  { value: "Brinquedos e Jogos" },
+  { value: "Casa e Jardim" },
+  { value: "Esporte e Lazer" },
+  { value: "Automóveis e Veículos" },
 ];
 
 const AddProduct = () => {
   const [category, setCategory] = useState("");
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState([]);
+  const [addressId, setAddressId] = useState("");
   const [images, setImages] = useState<ImagePickerAsset[]>([]);
+
+  const [fields, setFields] = useState({
+    title: "",
+    price: "",
+    description: "",
+    images: [{}],
+    category: "",
+    addressId: "",
+  });
+
+  const handleGetAddress = async () => {
+    const res = await addressService.getAddress();
+
+    const value = res.data.map((address: Address) => {
+      return {
+        key: address._id,
+        value: `${address.street} Nº${address.number}`,
+      };
+    });
+    setAddress(value);
+  };
+
+  const handleSubmitProduct = () => {
+    console.log(fields);
+  };
+
+  useEffect(() => {
+    setFields({
+      ...fields,
+      images: images,
+      category: category,
+      addressId: addressId,
+    });
+  }, [images, category, addressId]);
+
+  useEffect(() => {
+    handleGetAddress();
+  }, []);
 
   return (
     <Container contentContainerStyle={{ paddingBottom: 80, paddingTop: 10 }}>
       <DefaultTitle title="CADASTRO DO ANÚNCIO" fontSize={18} />
 
       <InputContainer>
-        <Input placeholder="Título" />
+        <Input
+          placeholder="Título"
+          value={fields.title}
+          onChangeText={(val) => {
+            setFields({
+              ...fields,
+              title: val,
+            });
+          }}
+        />
       </InputContainer>
 
       <InputContainer>
-        <Input placeholder="Preço" keyboardType="numeric" />
+        <Input
+          placeholder="Preço"
+          keyboardType="numeric"
+          value={fields.price}
+          onChangeText={(val) => {
+            setFields({
+              ...fields,
+              price: val,
+            });
+          }}
+        />
       </InputContainer>
 
       <DescriptionContainer>
-        <Input placeholder="Descrição" />
+        <Input
+          placeholder="Descrição"
+          value={fields.description}
+          onChangeText={(val) => {
+            setFields({
+              ...fields,
+              description: val,
+            });
+          }}
+        />
       </DescriptionContainer>
 
       <UploadInput images={images} setImages={setImages} />
@@ -56,14 +122,14 @@ const AddProduct = () => {
       />
 
       <DropDownComponent
-        data={Address}
+        data={address}
         placeholder="Selecione o endereço"
-        setSelected={setAddress}
+        setSelected={setAddressId}
       />
 
       <DefaultButton
         buttonText="CADASTRAR E PUBLICAR"
-        buttonHandle={() => {}}
+        buttonHandle={handleSubmitProduct}
         buttonType="primary"
         marginVertical={20}
       />
