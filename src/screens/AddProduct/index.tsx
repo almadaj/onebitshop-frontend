@@ -13,6 +13,10 @@ import UploadInput from "../../components/AddProduct/UploadInput";
 import { ImagePickerAsset } from "expo-image-picker";
 import addressService from "../../services/addressService";
 import { Address } from "../../entitites/User";
+import { Alert } from "react-native";
+import productService from "../../services/productService";
+import { useNavigation } from "@react-navigation/native";
+import { PropsNavigationStack, PropsStack } from "../../routes";
 
 const Category = [
   { value: "Eletrônicos" },
@@ -26,13 +30,14 @@ const Category = [
 ];
 
 const AddProduct = () => {
+  const navigation = useNavigation<PropsStack>();
   const [category, setCategory] = useState("");
   const [address, setAddress] = useState([]);
   const [addressId, setAddressId] = useState("");
   const [images, setImages] = useState<ImagePickerAsset[]>([]);
 
   const [fields, setFields] = useState({
-    title: "",
+    name: "",
     price: "",
     description: "",
     images: [{}],
@@ -52,8 +57,30 @@ const AddProduct = () => {
     setAddress(value);
   };
 
-  const handleSubmitProduct = () => {
-    console.log(fields);
+  const handleSubmitProduct = async (post: string) => {
+    if (
+      Object.values(fields).some((value) => !value) ||
+      !fields.images.length
+    ) {
+      Alert.alert("Um dos seus campos não está preenchido");
+      return;
+    }
+    const params = {
+      ...fields,
+      images: images.map(({ uri }) => ({
+        filename: uri.substring(uri.lastIndexOf("/") + 1),
+        uri,
+        url: "",
+        type: `image/${uri.split(".").slice(-1).toString()}`,
+      })),
+      published: post,
+    };
+    const { status } = await productService.addProduct(params);
+
+    if (status === 201) {
+      Alert.alert("Seu produto foi cadastrado com sucesso!");
+      navigation.navigate("Home");
+    }
   };
 
   useEffect(() => {
@@ -76,11 +103,11 @@ const AddProduct = () => {
       <InputContainer>
         <Input
           placeholder="Título"
-          value={fields.title}
+          value={fields.name}
           onChangeText={(val) => {
             setFields({
               ...fields,
-              title: val,
+              name: val,
             });
           }}
         />
@@ -129,7 +156,9 @@ const AddProduct = () => {
 
       <DefaultButton
         buttonText="CADASTRAR E PUBLICAR"
-        buttonHandle={handleSubmitProduct}
+        buttonHandle={() => {
+          handleSubmitProduct("true");
+        }}
         buttonType="primary"
         marginVertical={20}
       />
@@ -138,7 +167,9 @@ const AddProduct = () => {
 
       <DefaultButton
         buttonText="SALVAR COMO RASCUNHO"
-        buttonHandle={() => {}}
+        buttonHandle={() => {
+          handleSubmitProduct("false");
+        }}
         buttonType="secondary"
         marginVertical={20}
       />
