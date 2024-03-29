@@ -32,7 +32,7 @@ const ProductCard = ({ data }: DataProps) => {
     <Container
       activeOpacity={0.85}
       onPress={() => {
-        navigation.navigate("Product");
+        navigation.navigate("Product", { ...data });
       }}
     >
       {/* <ProductImage source={{ uri: data.images[0].url }} /> */}
