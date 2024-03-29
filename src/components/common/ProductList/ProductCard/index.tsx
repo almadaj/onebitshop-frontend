@@ -16,6 +16,7 @@ import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../../../routes";
 import { Product } from "../../../../entitites/Product";
+import getDate from "../../../../utils/getDate";
 
 const likeImage = require("../../../../../assets/icons/like.png");
 const likedImage = require("../../../../../assets/icons/liked.png");
@@ -41,9 +42,9 @@ const ProductCard = ({ data }: DataProps) => {
         <InfoLikeContainer>
           <SellerInfoContainer>
             <PublishedText>
-              Publicado em {data.publishedData} por:
+              Publicado em {getDate(data.createdAt)} por:
             </PublishedText>
-            {/* <SellerName>{data.Seller.name}</SellerName> */}
+            <SellerName>{data.seller.name}</SellerName>
           </SellerInfoContainer>
           <LikeButton onPress={() => Alert.alert("Liked")} activeOpacity={0.85}>
             <LikeIcon source={likeImage} />
