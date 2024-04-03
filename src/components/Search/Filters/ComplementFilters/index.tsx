@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { SetStateAction, useContext, useState } from "react";
 
 import {
   ApplyButton,
@@ -13,6 +13,7 @@ import {
   Title,
 } from "./styles";
 import DropDownComponent from "../../../common/DropDownComponent";
+import { QueryContext } from "../../../../contexts/QueryContext";
 
 const Category = [
   { value: "Eletrônicos" },
@@ -25,18 +26,50 @@ const Category = [
   { value: "Automóveis e Veículos" },
 ];
 
-const ComplementFilters = () => {
-  const [category, setCategory] = useState("");
+interface Props {
+  setShowFilters: React.Dispatch<SetStateAction<boolean>>;
+}
 
+const ComplementFilters = ({ setShowFilters }: Props) => {
+  const [category, setCategory] = useState("");
+  const queryContext = useContext(QueryContext);
+  const [fields, setFields] = useState({
+    minPrice: "",
+    maxPrice: "",
+  });
+  const handleMinPrice = () => {
+    queryContext.addFilter(`minPrice=${fields.minPrice}`);
+  };
+
+  const handleMaxPrice = () => {
+    queryContext.addFilter(`maxPrice=${fields.maxPrice}`);
+  };
+
+  const handleSearchFiltered = () => {
+    if (fields.minPrice) {
+      handleMinPrice();
+    }
+    if (fields.maxPrice) {
+      handleMaxPrice();
+    }
+    setShowFilters(false);
+  };
   return (
     <Container>
       <Title>VALOR</Title>
       <PriceContainer>
         <PriceInputContainer>
           <Input
-            placeholder="mínimo"
+            placeholder="Mínimo"
             placeholderTextColor="white"
             keyboardType="numeric"
+            value={fields.minPrice}
+            onChangeText={(val) => {
+              setFields({
+                ...fields,
+                minPrice: val,
+              });
+            }}
             style={{
               textAlign: "center",
             }}
@@ -44,9 +77,16 @@ const ComplementFilters = () => {
         </PriceInputContainer>
         <PriceInputContainer>
           <Input
-            placeholder="máximo"
+            placeholder="Máximo"
             placeholderTextColor="white"
             keyboardType="numeric"
+            value={fields.maxPrice}
+            onChangeText={(val) => {
+              setFields({
+                ...fields,
+                maxPrice: val,
+              });
+            }}
             style={{
               textAlign: "center",
             }}
@@ -71,7 +111,7 @@ const ComplementFilters = () => {
         <CleanButton onPress={() => {}}>
           <ButtonText>LIMPAR</ButtonText>
         </CleanButton>
-        <ApplyButton onPress={() => {}}>
+        <ApplyButton onPress={handleSearchFiltered}>
           <ButtonText>APLICAR</ButtonText>
         </ApplyButton>
       </ButtonsContainer>

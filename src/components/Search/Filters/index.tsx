@@ -13,6 +13,7 @@ import {
 import React from "react";
 import { Modal } from "react-native";
 import { QueryContext } from "../../../contexts/QueryContext";
+import ComplementFilters from "./ComplementFilters";
 
 const filtersIcon = require("../../../../assets/icons/filtrar.png");
 
@@ -74,7 +75,9 @@ const Filters = () => {
           <FiltersText>Filtrar</FiltersText>
         </FiltersContainer>
       </Container>
-      {/* {!showFilters ? null : <FiltersElements />} */}
+      {!showFilters ? null : (
+        <ComplementFilters setShowFilters={setShowFilters} />
+      )}
     </>
   );
 };
