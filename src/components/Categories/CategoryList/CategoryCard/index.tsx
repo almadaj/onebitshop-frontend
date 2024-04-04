@@ -24,7 +24,7 @@ const CategoryCard = ({ product }: ProductProps) => {
   return (
     <Container
       onPress={() => {
-        navigation.navigate("Product");
+        navigation.navigate("Product", { ...product });
       }}
     >
       <Image source={{ uri: product.images[0].url }} />

@@ -7,6 +7,10 @@ import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../../routes";
 import { Product } from "../../../entitites/Product";
 
+interface Props {
+  category: Category;
+}
+
 const CategoryList = ({ category }: Category) => {
   const navigation = useNavigation<PropsStack>();
   const renderItem: ListRenderItem<Product> = ({ item }) => {
@@ -21,7 +25,7 @@ const CategoryList = ({ category }: Category) => {
             onPress={() => {
               navigation.navigate("Category", {
                 _id: category._id,
-                product: category.product,
+                product: category.products,
               });
             }}
           >
@@ -30,7 +34,7 @@ const CategoryList = ({ category }: Category) => {
         </TitleContainer>
 
         <FlatList
-          data={category.product}
+          data={category.products}
           renderItem={renderItem}
           horizontal
           showsHorizontalScrollIndicator={false}
