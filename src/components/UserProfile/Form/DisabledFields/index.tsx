@@ -6,20 +6,23 @@ import {
   InputDisabled,
   PlaceholderDisabled,
 } from "./styles";
+import { User } from "../../../../entitites/User";
 
 const arrow = require("../../../../../assets/icons/arrow-down.png");
-
-const DisabledFields = () => {
+interface Props {
+  userInfo: User;
+}
+const DisabledFields = ({ userInfo }: Props) => {
   return (
     <>
       <InputDisabled>
-        <PlaceholderDisabled>Juliano Almada</PlaceholderDisabled>
+        <PlaceholderDisabled>{userInfo.name}</PlaceholderDisabled>
       </InputDisabled>
       <InputDisabled>
-        <PlaceholderDisabled>julianoalmada@gmail.com</PlaceholderDisabled>
+        <PlaceholderDisabled>{userInfo.email}</PlaceholderDisabled>
       </InputDisabled>
       <InputDisabled>
-        <PlaceholderDisabled>(85) 9 9999-9999</PlaceholderDisabled>
+        <PlaceholderDisabled>{userInfo.phone}</PlaceholderDisabled>
       </InputDisabled>
       <DropDownDisabledContainer>
         <DropDownDisabled

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AddressText,
   Container,
@@ -15,6 +15,11 @@ import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../routes";
 import { LogBox } from "react-native";
+import { Seller } from "../../entitites/Product";
+import useAuth from "../../hook/useAuth";
+import profileService from "../../services/profileService";
+import Loader from "../Loader";
+import { User } from "../../entitites/User";
 
 LogBox.ignoreLogs([`to contain units`]);
 const Data = [
@@ -45,7 +50,22 @@ const Data = [
 ];
 
 const UserProfile = () => {
+  const [userInfo, setUserInfo] = useState<User>();
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation<PropsStack>();
+
+  const { logout } = useAuth();
+
+  const handleUserInfos = async () => {
+    const { data } = await profileService.getUserProfile();
+    setUserInfo(data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    handleUserInfos();
+  }, []);
+
   const handleDeleteAcc = () => {
     Alert.alert(
       "Você tem certeza?",
@@ -64,6 +84,11 @@ const UserProfile = () => {
       ]
     );
   };
+
+  if (!userInfo) {
+    return <Loader />;
+  }
+
   return (
     <>
       <Container
@@ -72,8 +97,8 @@ const UserProfile = () => {
         }}
       >
         <DefaultTitle fontSize={20} title="MEU PERFIL" />
-        <ProfileInfo />
-        <Form />
+        <ProfileInfo userInfo={userInfo} />
+        <Form userInfo={userInfo} />
         <AddressText
           onPress={() => {
             navigation.navigate("AllAddress", { newAddress: false });
@@ -82,7 +107,7 @@ const UserProfile = () => {
           Gerenciar Endereços
         </AddressText>
         {/* <UserAds products={Data} seller={false} /> */}
-        <LogOutBtn onPress={() => {}}>
+        <LogOutBtn onPress={logout}>
           <LogOutText>Sair da conta</LogOutText>
         </LogOutBtn>
         <DeleteAcc onPress={handleDeleteAcc}>Excluir Conta</DeleteAcc>

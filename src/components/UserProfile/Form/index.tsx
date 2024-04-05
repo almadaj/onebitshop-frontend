@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { BtnImg, Container, EditBtn, EditBtnContainer } from "./styles";
 import DisabledFields from "./DisabledFields";
 import AbledFields from "./AbledFields";
+import { User } from "../../../entitites/User";
 
 const btnImg = require("../../../../assets/icons/edit.png");
-
-const Form = () => {
+interface Props {
+  userInfo: User;
+}
+const Form = ({ userInfo }: Props) => {
   const [editable, setEditable] = useState(false);
   const handleToggleEditable = () => {
     setEditable(!editable);
@@ -17,7 +20,11 @@ const Form = () => {
           <BtnImg source={btnImg} />
         </EditBtn>
       </EditBtnContainer>
-      {!editable ? <DisabledFields /> : <AbledFields />}
+      {!editable ? (
+        <DisabledFields userInfo={userInfo} />
+      ) : (
+        <AbledFields userInfo={userInfo} />
+      )}
     </Container>
   );
 };

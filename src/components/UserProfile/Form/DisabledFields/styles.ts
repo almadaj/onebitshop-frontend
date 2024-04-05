@@ -16,7 +16,9 @@ export const PlaceholderDisabled = styled.Text`
   color: ${({ theme }) => theme.colors.secondaryText};
 `;
 
-export const DropDownDisabledContainer = styled(DropDownContainer)``;
+export const DropDownDisabledContainer = styled(DropDownContainer).attrs({
+  PointerEvents: "none",
+})``;
 
 export const DropDownDisabled = styled(DropDown).attrs({
   boxStyles: {
