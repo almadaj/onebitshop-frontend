@@ -45,7 +45,9 @@ export const InteractionsContainer = styled.View`
   align-items: center;
 `;
 
-export const Button = styled.TouchableOpacity``;
+export const Button = styled.TouchableOpacity`
+  margin-left: 15px;
+`;
 
 export const Like = styled.Image.attrs({
   resizeMode: "contain",

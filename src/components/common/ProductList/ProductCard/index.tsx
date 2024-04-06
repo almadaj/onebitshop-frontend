@@ -12,20 +12,22 @@ import {
   SellerInfoContainer,
   SellerName,
 } from "./styles";
-import { Alert } from "react-native";
+
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../../../routes";
 import { Product } from "../../../../entitites/Product";
 import getDate from "../../../../utils/getDate";
+import Like from "../../Like";
 
 const likeImage = require("../../../../../assets/icons/like.png");
 const likedImage = require("../../../../../assets/icons/liked.png");
 
 interface DataProps {
   data: Product;
+  favorite: boolean;
 }
 
-const ProductCard = ({ data }: DataProps) => {
+const ProductCard = ({ data, favorite }: DataProps) => {
   const navigation = useNavigation<PropsStack>();
 
   return (
@@ -35,7 +37,7 @@ const ProductCard = ({ data }: DataProps) => {
         navigation.navigate("Product", { ...data });
       }}
     >
-      {/* <ProductImage source={{ uri: data.images[0].url }} /> */}
+      <ProductImage source={{ uri: data.images[0].url }} />
       <ProductInfoContainer>
         <ProductPrice>R$ {data.price}</ProductPrice>
         <ProductTitle numberOfLines={2}>{data.name}</ProductTitle>
@@ -46,9 +48,7 @@ const ProductCard = ({ data }: DataProps) => {
             </PublishedText>
             <SellerName>{data.seller.name}</SellerName>
           </SellerInfoContainer>
-          <LikeButton onPress={() => Alert.alert("Liked")} activeOpacity={0.85}>
-            <LikeIcon source={likeImage} />
-          </LikeButton>
+          <Like favorites={favorite} productId={data._id} />
         </InfoLikeContainer>
       </ProductInfoContainer>
     </Container>
