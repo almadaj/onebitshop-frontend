@@ -8,6 +8,10 @@ interface updateProfile {
   phone: string;
 }
 
+interface SellerProps {
+  sellerId: string;
+}
+
 const profileService = {
   getUserProfile: async () => {
     const token = await SecureStore.getItemAsync("onebitshop-token");
@@ -28,6 +32,21 @@ const profileService = {
     const token = await SecureStore.getItemAsync("onebitshop-token");
 
     const res = await api.put("/profile", params, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res;
+  },
+
+  getSellerProfile: async ({ sellerId }: SellerProps) => {
+    const token = await SecureStore.getItemAsync("onebitshop-token");
+    const user = await AsyncStorage.getItem("user");
+
+    const { _id } = JSON.parse(user || "");
+
+    const res = await api.get(`/users/${sellerId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

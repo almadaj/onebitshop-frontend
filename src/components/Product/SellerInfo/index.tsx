@@ -11,20 +11,21 @@ import {
 import { PropsStack } from "../../../routes";
 import { AirbnbRating } from "react-native-ratings";
 import useAuth from "../../../hook/useAuth";
+import { Product } from "../../../entitites/Product";
 
 interface Props {
-  name: string;
+  product: Product;
 }
 
-const SellerInfo = ({ name }: Props) => {
+const SellerInfo = ({ product }: Props) => {
   const navigation = useNavigation<PropsStack>();
-  const Rate = null;
+  const Rate = parseInt(product.seller.rating);
   const { token } = useAuth();
 
   return (
     <Container>
       <SellerContainer>
-        <Name>{name}</Name>
+        <Name>{product.seller.name}</Name>
 
         {!Rate ? (
           <NoRate
@@ -56,7 +57,9 @@ const SellerInfo = ({ name }: Props) => {
       </SellerContainer>
       <SeeProfile
         onPress={() => {
-          navigation.navigate("SellerProfile");
+          navigation.navigate("SellerProfile", {
+            sellerId: product.seller._id,
+          });
         }}
       >
         Ver Perfil

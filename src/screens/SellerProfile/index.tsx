@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AdsContainer, Container, DenounceText } from "./styles";
 
 import DefaultTitle from "../../components/common/DefaultTitle";
@@ -7,39 +7,35 @@ import UserAds from "../../components/UserProfile/UserAds";
 import DefaultButton from "../../components/common/DefaultButton";
 import NavBar from "../../components/common/NavBar";
 import { useNavigation } from "@react-navigation/native";
-import { PropsStack } from "../../routes";
+import { PropsNavigationStack, PropsStack } from "../../routes";
 import useAuth from "../../hook/useAuth";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { Seller } from "../../entitites/Product";
+import profileService from "../../services/profileService";
+import Loader from "../Loader";
+import { User } from "../../entitites/User";
 
-const Data = [
-  {
-    id: "1",
-    productImage:
-      "https://http2.mlstatic.com/D_NQ_NP_715237-MLA45308505060_032021-O.jpg",
-    price: "2600",
-    title: "Playstation 4 novo com 3 jogos acompanhando",
-    publishedData: "02/23",
-  },
-  {
-    id: "2",
-    productImage:
-      "https://m.media-amazon.com/images/I/61hJ40qZKKL._AC_SX679_.jpg",
-    price: "2600",
-    title: "Playstation 5 novo com 1 jogo acompanhando",
-    publishedData: "02/23",
-  },
-  {
-    id: "3",
-    productImage:
-      "https://http2.mlstatic.com/D_NQ_NP_715237-MLA45308505060_032021-O.jpg",
-    price: "2600",
-    title: "Playstation 4 novo com 2 jogos acompanhando",
-    publishedData: "02/23",
-  },
-];
-
-const SellerProfile = () => {
+type Props = NativeStackScreenProps<PropsNavigationStack, "SellerProfile">;
+const SellerProfile = ({ route }: Props) => {
   const navigation = useNavigation<PropsStack>();
   const { token } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const [userInfo, setUserInfo] = useState<User>();
+
+  const handleGetInfos = async () => {
+    const data = await profileService.getSellerProfile(route.params);
+    setUserInfo(data?.data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    handleGetInfos();
+  }, []);
+
+  if (!userInfo || loading) {
+    return <Loader />;
+  }
+
   return (
     <>
       <Container
@@ -48,9 +44,9 @@ const SellerProfile = () => {
         }}
       >
         <DefaultTitle title="PERFIL DO VENDEDOR" fontSize={20} />
-        <ProfileInfo />
+        <ProfileInfo userInfo={userInfo} />
         <AdsContainer>
-          <UserAds products={Data} seller={true} />
+          <UserAds product={userInfo?.products} seller={true} />
         </AdsContainer>
         <DefaultButton
           buttonText="Fale com o vendedor"

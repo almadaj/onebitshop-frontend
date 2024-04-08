@@ -30,7 +30,9 @@ export type PropsNavigationStack = {
     query: string;
   };
   UserProfile: undefined;
-  SellerProfile: undefined;
+  SellerProfile: {
+    sellerId: string;
+  };
   AllAddress: {
     newAddress: boolean;
   };
