@@ -18,8 +18,9 @@ import Denounce from "../screens/Denounce";
 import Feedback from "../screens/Feedback";
 import AllChats from "../screens/AllChats";
 import Chat from "../screens/Chat";
-import { Product } from "../entitites/Product";
+import { Image, Product } from "../entitites/Product";
 import useAuth from "../hook/useAuth";
+import UpdateProduct from "../screens/UpdateProduct";
 
 export type PropsNavigationStack = {
   Home: undefined;
@@ -35,6 +36,16 @@ export type PropsNavigationStack = {
   };
   AddAddress: undefined;
   AddProduct: undefined;
+  UpdateProduct: {
+    _id: string;
+    name: string;
+    price: string;
+    description: string;
+    images: Image[];
+    category: string;
+    addressId: string;
+    published: string;
+  };
   AllCategories: undefined;
   Category: { _id: string; product: Product[] };
   Product: Product;
@@ -85,6 +96,7 @@ const Routes = () => {
             <Stack.Screen name="Denounce" component={Denounce} />
             <Stack.Screen name="AddAddress" component={AddAddress} />
             <Stack.Screen name="AllAddress" component={AllAddress} />
+            <Stack.Screen name="UpdateProduct" component={UpdateProduct} />
           </>
         )}
       </Stack.Navigator>

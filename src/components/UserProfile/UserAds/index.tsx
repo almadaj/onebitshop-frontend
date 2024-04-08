@@ -18,34 +18,49 @@ import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../../routes";
 import { Product } from "../../../entitites/Product";
+import getDate from "../../../utils/getDate";
+import productService from "../../../services/productService";
 
 const trash = require("../../../../assets/icons/trash.png");
 const favorite = require("../../../../assets/icons/like.png");
 
 interface ProductProps {
-  products: Product[];
+  product: Product[];
   seller: boolean;
 }
 
-const UserAds = ({ products, seller }: ProductProps) => {
+const UserAds = ({ product, seller }: ProductProps) => {
   const navigation = useNavigation<PropsStack>();
+  const handleDeleteProduct = async (_id: string) => {
+    const params = {
+      _id,
+    };
 
-  const handleEditProduct = () => {
-    if (!seller) {
-      navigation.navigate("AddProduct");
-    } else {
-      navigation.navigate("Product");
+    const res = await productService.deleteProduct(params);
+
+    if (res.status === 204) {
+      Alert.alert("Produto deletado com sucesso");
+      navigation.navigate("Home");
     }
   };
   return (
     <Container>
-      <TotalAds>Você tem {products.length} anúncios</TotalAds>
-      {products.length > 0 ? (
-        products.map((product) => (
+      <TotalAds>Você tem {product.length} anúncios</TotalAds>
+      {product.length > 0 ? (
+        product.map((product) => (
           <AdCard
             activeOpacity={0.85}
             onPress={() => {
-              handleEditProduct;
+              navigation.navigate("UpdateProduct", {
+                _id: product._id,
+                name: product.name,
+                price: product.price,
+                description: product.description,
+                images: product.images,
+                category: product.category,
+                addressId: product.address._id,
+                published: product.publishedData,
+              });
             }}
             key={product._id}
           >
@@ -62,13 +77,27 @@ const UserAds = ({ products, seller }: ProductProps) => {
 
               <InfoIconContainer>
                 <PublishedText>
-                  Publicado em {product.publishedData}
+                  Publicado em {getDate(product.createdAt)}
                 </PublishedText>
 
                 {!seller ? (
                   <IconButton
                     onPress={() => {
-                      Alert.alert("Item para ser excluído");
+                      Alert.alert(
+                        "Você tem certeza?",
+                        "Ao fazer isso você deleterá o produto permanentemente.",
+                        [
+                          {
+                            text: "Sim",
+                            onPress: () => {
+                              handleDeleteProduct(product._id);
+                            },
+                          },
+                          {
+                            text: "Não",
+                          },
+                        ]
+                      );
                     }}
                     activeOpacity={0.85}
                   >
