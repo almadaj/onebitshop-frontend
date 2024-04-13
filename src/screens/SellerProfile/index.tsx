@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { AdsContainer, Container, DenounceText } from "./styles";
-
 import DefaultTitle from "../../components/common/DefaultTitle";
 import ProfileInfo from "../../components/common/ProfileInfo";
 import UserAds from "../../components/UserProfile/UserAds";
@@ -14,6 +13,9 @@ import { Seller } from "../../entitites/Product";
 import profileService from "../../services/profileService";
 import Loader from "../Loader";
 import { User } from "../../entitites/User";
+import chatService from "../../services/chatService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from "react-native";
 
 type Props = NativeStackScreenProps<PropsNavigationStack, "SellerProfile">;
 const SellerProfile = ({ route }: Props) => {
@@ -35,6 +37,43 @@ const SellerProfile = ({ route }: Props) => {
   if (!userInfo || loading) {
     return <Loader />;
   }
+  const handleChatSeller = async () => {
+    if (userInfo.products.length <= 0) {
+      Alert.alert(
+        "Esse vendedor não vende nada, então você não pode falar com ele!"
+      );
+      return;
+    }
+
+    const user = await AsyncStorage.getItem("user");
+    const { _id } = JSON.parse(user || "");
+
+    const initialMessage = `Olá, quero saber mais sobre o seu produto, ${userInfo.name}`;
+
+    const params = {
+      product: userInfo.products[0]._id,
+      seller: userInfo._id,
+      initialMessage,
+    };
+
+    const res = await chatService.startChat(params);
+
+    if (res.status === 201) {
+      navigation.navigate("Chat", {
+        product: userInfo.products[0],
+        sellerName: userInfo.name,
+        sellerId: userInfo._id,
+        buyerId: _id,
+        messages: [
+          {
+            content: initialMessage,
+            receiver: userInfo._id,
+            sender: _id,
+          },
+        ],
+      });
+    }
+  };
 
   return (
     <>

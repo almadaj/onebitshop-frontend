@@ -24,6 +24,8 @@ import getDate from "../../utils/getDate";
 import favoriteService from "../../services/favoriteService";
 import { Product as ProductType } from "../../entitites/Product";
 import Like from "../../components/common/Like";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import chatService from "../../services/chatService";
 
 const like = require("../../../assets/icons/like.png");
 const share = require("../../../assets/icons/share.png");
@@ -32,6 +34,37 @@ const Product = ({ route }: Props) => {
   const [liked, setLiked] = useState(false);
   const navigation = useNavigation<PropsStack>();
   const { token } = useAuth();
+
+  const handleChatSeller = async () => {
+    const user = await AsyncStorage.getItem("user");
+    const { _id } = JSON.parse(user || "");
+
+    const initialMessage = `Olá, quero saber mais sobre o seu produto, ${route.params.seller.name}`;
+
+    const params = {
+      product: route.params._id,
+      seller: route.params.seller._id,
+      initialMessage,
+    };
+
+    const res = await chatService.startChat(params);
+
+    if (res.status === 201) {
+      navigation.navigate("Chat", {
+        product: route.params,
+        sellerName: route.params.seller.name,
+        sellerId: route.params.seller._id,
+        buyerId: _id,
+        messages: [
+          {
+            content: initialMessage,
+            receiver: route.params.seller._id,
+            sender: _id,
+          },
+        ],
+      });
+    }
+  };
   const { params } = route;
 
   const handleGetFavorites = async () => {
@@ -81,7 +114,7 @@ const Product = ({ route }: Props) => {
         buttonText={"Fale com o Vendedor"}
         buttonType={"primary"}
         marginVertical={0}
-        buttonHandle={() => {}}
+        buttonHandle={handleChatSeller}
       />
 
       <DenounceSeller

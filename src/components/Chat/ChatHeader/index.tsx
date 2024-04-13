@@ -14,16 +14,24 @@ import { Modal } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../../routes";
 import AdCard from "./AdCard";
+import { Product } from "../../../entitites/Product";
 
 const modalImg = require("../../../../assets/icons/dots.png");
-const ChatHeader = ({ sellerName, product }: any) => {
+
+interface Props {
+  sellerId: string;
+  sellerName: string;
+  product: Product;
+}
+
+const ChatHeader = ({ sellerName, product, sellerId }: Props) => {
   const navigation = useNavigation<PropsStack>();
   const [modalVisible, setModalVisible] = useState(false);
   const handleToggleModal = () => {
     setModalVisible(!modalVisible);
   };
   const handleSellerProfile = () => {
-    navigation.navigate("SellerProfile");
+    navigation.navigate("SellerProfile", { sellerId });
   };
 
   const handleFeedback = () => {
